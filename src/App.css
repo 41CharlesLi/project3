@@ -248,6 +248,7 @@ template {
 .wrapper {
     max-width: 1800px;
     width: 90%;
+    margin: 0 auto;
 }
 /* header CSS */
 
@@ -256,12 +257,14 @@ header {
     justify-content: center;
     align-content: center;
     height: 100px;
+    width: 100%;
+    margin-bottom: 50px;
 }
 
 .navLinks {
     width: 50%;
 }
-ul {
+.navList {
     list-style: none;
     display: flex;
     flex-direction: row;
@@ -269,18 +272,32 @@ ul {
     justify-content: flex-end;
 }
 
-.headerWrapper {
+.headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .postForm {
-    width: 50%;
+    width: 45%;
     display: flex;
     flex-direction: column;
 }
 
 .logo {
     height: 100px;
+}
+
+.blogSection {
+    width: 45%;
+    max-height: 100%;
+    border: 1px solid blue;
+    list-style: none;
+    overflow: hidden;
+}
+
+.mainSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

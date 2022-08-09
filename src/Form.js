@@ -1,13 +1,27 @@
 import React, { useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "./firebase-config";
 
-const initialInputs = {
-    characterName: "",
-    characterBackstory: "",
-    characterClass: "",
-};
+const Form = () => {
+    const initialInputs = {
+        characterName: "",
+        characterBackstory: "",
+        characterClass: "",
+    };
 
-const Form = ({ handleSubmit }) => {
     const [inputs, setInputs] = useState(initialInputs);
+
+    const postsCollectionRef = collection(db, "posts");
+
+    const createPost = async (e) => {
+        e.preventDefault();
+        await addDoc(postsCollectionRef, inputs);
+        setInputs({
+            characterName: "",
+            characterBackstory: "",
+            characterClass: "",
+        });
+    };
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -18,7 +32,7 @@ const Form = ({ handleSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="postForm">
+        <form onSubmit={createPost} className="postForm">
             <label htmlFor="characterName">Enter your character's name</label>
             <input
                 type="text"
@@ -43,6 +57,7 @@ const Form = ({ handleSubmit }) => {
                 rows="10"
                 cols="33"
             ></textarea>
+            <button>Submit</button>
         </form>
     );
 };
