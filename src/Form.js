@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "./firebase-config";
+import firebase from "./firebase-config";
+import { getDatabase, ref, push } from "firebase/database";
 
 const Form = () => {
     const initialInputs = {
@@ -11,16 +11,19 @@ const Form = () => {
 
     const [inputs, setInputs] = useState(initialInputs);
 
-    const postsCollectionRef = collection(db, "posts");
-
-    const createPost = async (e) => {
+    const createPost = (e) => {
         e.preventDefault();
-        await addDoc(postsCollectionRef, inputs);
-        setInputs({
-            characterName: "",
-            characterBackstory: "",
-            characterClass: "",
-        });
+        const database = getDatabase(firebase);
+        const dbRef = ref(database);
+
+        if (inputs) {
+            push(dbRef, inputs);
+            setInputs({
+                characterName: "",
+                characterBackstory: "",
+                characterClass: "",
+            });
+        }
     };
 
     const handleInputChange = (e) => {
@@ -57,7 +60,7 @@ const Form = () => {
                 rows="10"
                 cols="33"
             ></textarea>
-            <button>Submit</button>
+            <button className="submitButton">Submit</button>
         </form>
     );
 };
