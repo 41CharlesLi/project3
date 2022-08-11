@@ -18,7 +18,7 @@ const BlogSection = () => {
                     key: key,
                     characterName: data[key].characterName,
                     characterClass: data[key].characterClass,
-                    characterBackstory: data[key.characterBackstory],
+                    characterBackstory: data[key].characterBackstory,
                 });
             }
             setPostList(newState);
@@ -40,6 +40,7 @@ const BlogSection = () => {
                             <h2>{post.characterName}</h2>
                             <h3>{post.characterClass}</h3>
                             <p>{post.characterBackstory}</p>
+                            {console.log(post)}
                             <button
                                 className="deleteButton"
                                 onClick={() => {

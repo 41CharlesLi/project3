@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "./firebase-config";
 import { getDatabase, ref, push } from "firebase/database";
 
-const Form = () => {
+const Form = ({ isAuth, navigate }) => {
     const initialInputs = {
         characterName: "",
         characterBackstory: "",
@@ -34,34 +34,51 @@ const Form = () => {
         });
     };
 
+    //function that prevents user from seeing login page if not logged in
+    useEffect(() => {
+        if (!isAuth) {
+            window.location.pathname = "/login";
+        }
+    }, []);
+
     return (
-        <form onSubmit={createPost} className="postForm">
-            <label htmlFor="characterName">Enter your character's name</label>
-            <input
-                type="text"
-                id="characterName"
-                onChange={handleInputChange}
-                value={inputs.characterName}
-            ></input>
-            <label htmlFor="characterClass">Enter your character's class</label>
-            <input
-                type="text"
-                id="characterClass"
-                onChange={handleInputChange}
-                value={inputs.characterClass}
-            ></input>
-            <label htmlFor="characterName">
-                Enter your character's backstory
-            </label>
-            <textarea
-                id="characterBackstory"
-                onChange={handleInputChange}
-                value={inputs.characterBackstory}
-                rows="10"
-                cols="33"
-            ></textarea>
-            <button className="submitButton">Submit</button>
-        </form>
+        <main className="formContainer">
+            <h1> Create a Post</h1>
+            <form onSubmit={createPost} className="postForm">
+                <label htmlFor="characterName">
+                    Enter your character's name
+                </label>
+                <input
+                    type="text"
+                    id="characterName"
+                    onChange={handleInputChange}
+                    value={inputs.characterName}
+                    required
+                ></input>
+                <label htmlFor="characterClass">
+                    Enter your character's class
+                </label>
+                <input
+                    type="text"
+                    id="characterClass"
+                    onChange={handleInputChange}
+                    value={inputs.characterClass}
+                    required
+                ></input>
+                <label htmlFor="characterName">
+                    Enter your character's backstory
+                </label>
+                <textarea
+                    id="characterBackstory"
+                    onChange={handleInputChange}
+                    value={inputs.characterBackstory}
+                    rows="10"
+                    cols="33"
+                    required
+                ></textarea>
+                <button className="submitButton">Submit</button>
+            </form>
+        </main>
     );
 };
 
