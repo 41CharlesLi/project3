@@ -3,7 +3,13 @@ import BlogSection from "../BlogSection";
 import Intro from "../Intro";
 
 function Home({ isAuth }) {
-    return <div>{isAuth ? <BlogSection /> : <Intro />}</div>;
+    return (
+        <main>
+            <div className="wrapper">
+                {isAuth ? <BlogSection isAuth={isAuth} /> : <Intro />}
+            </div>
+        </main>
+    );
 }
 
 export default Home;

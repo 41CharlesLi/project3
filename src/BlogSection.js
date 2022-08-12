@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import firebase from "./firebase-config";
+import firebase, { auth } from "./firebase-config";
 import { getDatabase, ref, onValue, remove } from "firebase/database";
 
-const BlogSection = () => {
+const BlogSection = ({ isAuth }) => {
     const [postList, setPostList] = useState([]);
 
+    //useEffect to init database fetch and onValue to listen for changes to metadata
     useEffect(() => {
         const database = getDatabase(firebase);
         const dbRef = ref(database);
@@ -12,22 +13,24 @@ const BlogSection = () => {
         onValue(dbRef, (response) => {
             const newState = [];
             const data = response.val();
-
             for (let key in data) {
                 newState.push({
                     key: key,
                     characterName: data[key].characterName,
                     characterClass: data[key].characterClass,
                     characterBackstory: data[key].characterBackstory,
+                    author: data[key].author.name,
+                    authorId: data[key].author.id,
                 });
             }
             setPostList(newState);
         });
     }, []);
+
     const handleRemovePost = (id) => {
         //this function needs to take one argument representing location of post being removed
         const database = getDatabase(firebase);
-        const dbRef = ref(database, `/${id}`);
+        const dbRef = ref(database, `/${id}`); //`/${id}` is location of the info
         remove(dbRef);
     };
 
@@ -40,15 +43,20 @@ const BlogSection = () => {
                             <h2>{post.characterName}</h2>
                             <h3>{post.characterClass}</h3>
                             <p>{post.characterBackstory}</p>
-                            {console.log(post)}
-                            <button
-                                className="deleteButton"
-                                onClick={() => {
-                                    handleRemovePost(post.key);
-                                }}
-                            >
-                                Remove Post
-                            </button>
+                            <h3>@{post.author ? post.author : "anonymous"}</h3>
+                            {/* if current user id matches the id or the authorId OR the user is anon, they can use delete function */}
+                            {((isAuth &&
+                                post.authorId === auth.currentUser.uid) ||
+                                auth.currentUser.displayName === null) && (
+                                <button
+                                    className="deleteButton"
+                                    onClick={() => {
+                                        handleRemovePost(post.key);
+                                    }}
+                                >
+                                    Remove Post
+                                </button>
+                            )}
                         </li>
                     </div>
                 );

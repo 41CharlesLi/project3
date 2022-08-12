@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
-import firebase from "./firebase-config";
+import firebase, { auth } from "./firebase-config";
 import { getDatabase, ref, push } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 
-const Form = ({ isAuth, navigate }) => {
+const Form = ({ isAuth }) => {
+    let navigate = useNavigate();
+
+    //create object where we are storing user inputs as well as their login name and id
     const initialInputs = {
         characterName: "",
         characterBackstory: "",
         characterClass: "",
+        author: {
+            name: auth.currentUser.displayName,
+            id: auth.currentUser.uid,
+        },
     };
 
     const [inputs, setInputs] = useState(initialInputs);
 
+    //function to create a post and push to database. Afterwards, inputs are reset to empty string
     const createPost = (e) => {
         e.preventDefault();
         const database = getDatabase(firebase);
@@ -22,10 +31,16 @@ const Form = ({ isAuth, navigate }) => {
                 characterName: "",
                 characterBackstory: "",
                 characterClass: "",
+                author: {
+                    name: "",
+                    id: "",
+                },
             });
+            navigate("/");
         }
     };
 
+    //function to handle each change in input form
     const handleInputChange = (e) => {
         const { id, value } = e.target;
         setInputs({

@@ -1,36 +1,62 @@
-import React from "react";
-import { auth, provider, anonProvider } from "../firebase-config";
+import React, { useState } from "react";
+import { auth, provider } from "../firebase-config";
 import { signInWithPopup, signInAnonymously } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Login({ setIsAuth }) {
     let navigate = useNavigate();
+
+    //create state to know if user made error logging in
+    const [loginError, setLoginError] = useState(false);
+
     const signInWithGoogle = () => {
-        signInWithPopup(auth, provider).then((result) => {
-            localStorage.setItem("isAuth", true);
-            setIsAuth(true);
-            navigate("/");
-        });
+        signInWithPopup(auth, provider)
+            .then(() => {
+                localStorage.setItem("isAuth", true);
+                setLoginError(false);
+                setIsAuth(true);
+                navigate("/");
+            })
+            .catch((error) => {
+                setLoginError(true);
+            });
     };
+
     const signInAnon = () => {
-        signInAnonymously(auth).then(() => {
-            localStorage.setItem("isAuth", true);
-            setIsAuth(true);
-            navigate("/");
-        });
+        signInAnonymously(auth)
+            .then(() => {
+                localStorage.setItem("isAuth", true);
+                setLoginError(false);
+                setIsAuth(true);
+                navigate("/");
+            })
+            .catch((error) => setLoginError(true));
     };
 
     return (
-        <div className="loginPage">
-            <h1>Sign in to Continue</h1>
-            <button
-                className="login-with-google-btn"
-                onClick={signInWithGoogle}
-            >
-                Sign in With Google
-            </button>
-            <button onClick={signInAnon}>Sign in Anonymously</button>
-        </div>
+        <main>
+            <div className="wrapper">
+                <div className="loginPage">
+                    <h1>Sign in to Continue</h1>
+                    <div className="loginContainer">
+                        <button
+                            className="login-with-google-btn"
+                            onClick={signInWithGoogle}
+                        >
+                            Sign in With Google
+                        </button>
+                        <button onClick={signInAnon}>
+                            Sign in Anonymously
+                        </button>
+                        {loginError && (
+                            <p className="errorMessage">
+                                Login failed. Please try again.
+                            </p>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </main>
     );
 }
 export default Login;
