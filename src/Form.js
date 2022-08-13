@@ -7,12 +7,7 @@ import sword from "./assets/sword.png";
 const Form = ({ isAuth }) => {
     let navigate = useNavigate();
     //create object where we are storing user inputs as well as their login name and id
-    useEffect(() => {
-        if (localStorage.getItem("userName") === null) {
-            localStorage.setItem("userName", "anonymous");
-            localStorage.setItem("userId", "anonymous");
-        }
-    }, []);
+
     const initialInputs = {
         characterName: "",
         characterBackstory: "",
