@@ -401,6 +401,9 @@ a:visited {
 .logo {
     height: 50px;
 }
+select {
+    margin-bottom: 15px;
+}
 
 /* blogPosts CSS */
 .blogPosts {
@@ -489,6 +492,17 @@ a:visited {
 .blogPosts {
     display: flex;
     flex-direction: column;
+}
+
+.buildSelectForm {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.selectFormHeading {
+    font-size: 1.2rem;
+    margin: 0;
 }
 
 .postItem {
