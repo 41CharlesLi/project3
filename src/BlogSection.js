@@ -35,33 +35,55 @@ const BlogSection = ({ isAuth }) => {
     };
 
     return (
-        <ul className="blogSection">
-            {postList.map((post) => {
-                return (
-                    <div className="characterCard" key={post.key}>
-                        <li className="postItem">
-                            <h2>{post.characterName}</h2>
-                            <h3>{post.characterClass}</h3>
-                            <p>{post.characterBackstory}</p>
-                            <h3>@{post.author ? post.author : "anonymous"}</h3>
-                            {/* if current user id matches the id or the authorId OR the user is anon, they can use delete function */}
-                            {((isAuth &&
-                                post.authorId === auth.currentUser.uid) ||
-                                auth.currentUser.displayName === null) && (
-                                <button
-                                    className="deleteButton"
-                                    onClick={() => {
-                                        handleRemovePost(post.key);
-                                    }}
-                                >
-                                    Remove Post
-                                </button>
-                            )}
-                        </li>
+        <main>
+            <div className="wrapper">
+                <div className="blogSectionContainer">
+                    <div className="blogHeadingContainer">
+                        <h2>List of Builds</h2>
                     </div>
-                );
-            })}
-        </ul>
+                    <ul className="blogPosts">
+                        {postList.map((post) => {
+                            return (
+                                <div className="characterCard" key={post.key}>
+                                    <li className="postItem">
+                                        <h2 className="characterName">
+                                            {post.characterName}
+                                        </h2>
+                                        <h3 className="characterClass">
+                                            {post.characterClass}
+                                        </h3>
+                                        <p className="characterBackstory">
+                                            {post.characterBackstory}
+                                        </p>
+                                        <h3 className="characterAuthor">
+                                            @
+                                            {post.author
+                                                ? post.author
+                                                : "anonymous"}
+                                        </h3>
+                                        {/* if current user id matches the id or the authorId OR the user is anon, they can use delete function */}
+                                        {((isAuth &&
+                                            post.authorId ===
+                                                auth.currentUser.uid) ||
+                                            auth.currentUser.displayName ===
+                                                null) && (
+                                            <button
+                                                className="deleteButton"
+                                                onClick={() => {
+                                                    handleRemovePost(post.key);
+                                                }}
+                                            >
+                                                <i className="fa-solid fa-trash"></i>
+                                            </button>
+                                        )}
+                                    </li>
+                                </div>
+                            );
+                        })}
+                    </ul>
+                </div>
+            </div>
+        </main>
     );
 };
 

@@ -37,15 +37,20 @@ function Login({ setIsAuth }) {
         <main>
             <div className="wrapper">
                 <div className="loginPage">
-                    <h1>Sign in to Continue</h1>
+                    <div className="loginHeadingContainer">
+                        <h1>Sign in to Continue</h1>
+                    </div>
                     <div className="loginContainer">
                         <button
-                            className="login-with-google-btn"
+                            className="login-with-google-btn loginBtn"
                             onClick={signInWithGoogle}
                         >
                             Sign in With Google
                         </button>
-                        <button onClick={signInAnon}>
+                        <button
+                            onClick={signInAnon}
+                            className="loginBtn anonLogin"
+                        >
                             Sign in Anonymously
                         </button>
                         {loginError && (

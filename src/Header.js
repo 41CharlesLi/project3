@@ -28,7 +28,7 @@ const Header = ({ isAuth, signOut, setIsAuth }) => {
                     <a href="./">
                         <img
                             src={logo}
-                            alt="a wizard in a blue cap"
+                            alt="20 sided dice logo"
                             className="logo"
                         />
                     </a>
@@ -76,6 +76,7 @@ const Header = ({ isAuth, signOut, setIsAuth }) => {
                                         onClick={() => {
                                             showMenu();
                                         }}
+                                        className="logOutBtnContainer"
                                     >
                                         <button
                                             onClick={signUserOut}
@@ -88,18 +89,19 @@ const Header = ({ isAuth, signOut, setIsAuth }) => {
                             )}
                         </ul>
                         <button
-                            class="hamburger-menu desktop-hidden"
+                            className="hamburger-menu desktop-hidden"
                             onClick={() => {
                                 showMenu();
                             }}
                         >
-                            <span class="sr-only">hamburger menu</span>
-                            <i class="fa fa-bars"></i>
+                            <span className="sr-only">hamburger menu</span>
+                            <i className="fa fa-bars"></i>
                         </button>
                     </nav>
                 </div>
             </div>
             <div className="headerImgContainer">
+                {/* credit: https://magic.wizards.com/en/products/throne-of-eldraine/cards */}
                 <video
                     src={video}
                     autoPlay="autoplay"
