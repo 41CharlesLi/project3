@@ -11,7 +11,10 @@ const BlogSection = ({ isAuth }) => {
     useEffect(() => {
         const database = getDatabase(firebase);
         const dbRef = ref(database);
-
+        if (localStorage.getItem("userName") === null) {
+            localStorage.setItem("userName", "anonymous");
+            localStorage.setItem("userId", "anonymous");
+        }
         onValue(dbRef, (response) => {
             const newState = [];
             const data = response.val();
