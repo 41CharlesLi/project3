@@ -500,6 +500,9 @@ select {
     gap: 15px;
     margin-bottom: 20px;
 }
+option {
+    font-family: "Inknut Antiqua", serif;
+}
 .selectFormHeading {
     font-size: 1.2rem;
     margin: 0;

@@ -5,6 +5,8 @@ const DisplayCard = ({
     auth,
     handleRemovePost,
 }) => {
+    //if user choice is an empty string, return all items in our database
+    //else filter database by userchoice and return
     if (userChoice === "") {
         return allPosts.map((post) => {
             return (
@@ -21,17 +23,18 @@ const DisplayCard = ({
                             @{post.author ? post.author : "anonymous"}
                         </h3>
                         {/* if current user id matches the id or the authorId OR the user is anon, they can use delete function */}
-                        {((isAuth && post.authorId === auth.currentUser.uid) ||
-                            auth.currentUser.displayName === null) && (
-                            <button
-                                className="deleteButton"
-                                onClick={() => {
-                                    handleRemovePost(post.key);
-                                }}
-                            >
-                                <i className="fa-solid fa-trash"></i>
-                            </button>
-                        )}
+                        {isAuth &&
+                            post.authorId ===
+                                localStorage.getItem("userId") && (
+                                <button
+                                    className="deleteButton"
+                                    onClick={() => {
+                                        handleRemovePost(post.key);
+                                    }}
+                                >
+                                    <i className="fa-solid fa-trash"></i>
+                                </button>
+                            )}
                     </li>
                 </div>
             );
