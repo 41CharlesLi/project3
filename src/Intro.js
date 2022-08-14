@@ -3,7 +3,7 @@ import scroll from "./assets/scroll.png";
 
 export default function Instructions() {
     return (
-        <div className="main">
+        <section className="intro">
             <div className="wrapper">
                 <div className="introContainer">
                     <div className="imgContainer">
@@ -47,6 +47,6 @@ export default function Instructions() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

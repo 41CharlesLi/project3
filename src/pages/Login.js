@@ -36,7 +36,7 @@ function Login({ setIsAuth }) {
     };
 
     return (
-        <main>
+        <section className="loginSection">
             <div className="wrapper">
                 <div className="loginPage">
                     <div className="loginHeadingContainer">
@@ -63,7 +63,7 @@ function Login({ setIsAuth }) {
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
     );
 }
 export default Login;

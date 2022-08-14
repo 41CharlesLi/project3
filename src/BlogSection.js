@@ -25,7 +25,9 @@ const BlogSection = ({ isAuth }) => {
                     characterClass: data[key].characterClass,
                     characterBackstory: data[key].characterBackstory,
                     author: data[key].author.name,
+                    // author: localStorage.getItem("userName"),
                     authorId: data[key].author.id,
+                    // authorId: localStorage.getItem("userId"),
                 });
             }
             setPostList(newState);
@@ -44,7 +46,7 @@ const BlogSection = ({ isAuth }) => {
     };
 
     return (
-        <main>
+        <section>
             <div className="wrapper">
                 <div className="blogSectionContainer">
                     <div className="blogHeadingContainer">
@@ -90,7 +92,7 @@ const BlogSection = ({ isAuth }) => {
                     </ul>
                 </div>
             </div>
-        </main>
+        </section>
     );
 };
 
