@@ -65,7 +65,9 @@ const Header = ({ isAuth, signOut, setIsAuth }) => {
                                         }}
                                     >
                                         <Link
-                                            to="/createpost"
+                                            to={{
+                                                pathname: "/createpost",
+                                            }}
                                             className="navLink"
                                         >
                                             {" "}

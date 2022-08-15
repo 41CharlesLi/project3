@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
-    color: white;
+    color: #f8f0e3;
 }
 
 .App-link {
@@ -259,6 +259,7 @@ main {
 }
 section {
     min-height: 600px;
+    padding-bottom: 50px;
 }
 
 /* typography */
@@ -282,6 +283,10 @@ ol {
     padding: 0;
     font-family: "Inknut Antiqua", serif;
 }
+
+.fa-solid {
+    color: #f8f0e3;
+}
 /* header CSS */
 
 header {
@@ -289,7 +294,7 @@ header {
     background-color: black;
     max-height: 800px;
     overflow: hidden;
-    border-bottom: 2px solid darkred;
+    border-bottom: 1px solid darkred;
 }
 a {
     text-decoration: none;
@@ -714,7 +719,7 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
-    border-top: 4px solid darkred;
+    border-top: 3px solid darkred;
 }
 
 .footerTxtContainer {
@@ -723,7 +728,7 @@ footer {
 }
 h3 {
     margin: 0;
-    color: #ffffff;
+    color: #f8f0e3;
 }
 
 .footerTxt {
@@ -771,7 +776,6 @@ h3 {
     font-weight: 500;
     font-family: "Inknut Antiqua", serif;
     line-height: 1.4rem;
-    background-color: white;
     max-width: 300px;
 }
 

@@ -63,7 +63,7 @@ const Form = ({ isAuth }) => {
     return (
         <main>
             <div className="wrapper">
-                <div className="formContainer">
+                <div className="formContainer" id="form">
                     <h1 className="formHeading"> Create a Post</h1>
                     <form onSubmit={createPost} className="postForm">
                         <label htmlFor="characterName">Character's name</label>
