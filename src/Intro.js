@@ -16,7 +16,7 @@ export default function Instructions() {
                         <ol>
                             <li>
                                 <p className="rules">
-                                    Please Login to see posts
+                                    Please login to see posts
                                 </p>
                             </li>
                             <li>

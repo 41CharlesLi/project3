@@ -261,11 +261,6 @@ section {
     min-height: 600px;
 }
 
-/* @media (min-width: 1200px) {
-    main {
-        background-size: 180%;
-    }
-} */
 /* typography */
 
 p {
@@ -562,6 +557,7 @@ option {
     overflow: auto;
     background-color: hsl(0, 0%, 93%, 0.4);
     border-radius: 10px;
+    padding: 5px;
 }
 
 .buttonContainer {
@@ -680,6 +676,7 @@ textarea {
 
 .rules {
     margin-top: 15px;
+    font-weight: 500;
 }
 .scrollImg {
     max-width: 450px;

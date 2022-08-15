@@ -5,16 +5,20 @@ import DisplayCard from "./DisplayCard";
 
 const BlogSection = ({ isAuth }) => {
     const [postList, setPostList] = useState([]);
-    // const [filteredList, setFilteredList] = useState([]);
+
     const [userChoice, setUserChoice] = useState("");
+
     //useEffect to init database fetch and onValue to listen for changes to metadata
     useEffect(() => {
         const database = getDatabase(firebase);
         const dbRef = ref(database);
+
+        //saves userName and userId into local storage. Form.js breaks on refresh if values are not available
         if (localStorage.getItem("userName") === null) {
             localStorage.setItem("userName", "anonymous");
             localStorage.setItem("userId", "anonymous");
         }
+
         onValue(dbRef, (response) => {
             const newState = [];
             const data = response.val();
@@ -25,9 +29,7 @@ const BlogSection = ({ isAuth }) => {
                     characterClass: data[key].characterClass,
                     characterBackstory: data[key].characterBackstory,
                     author: data[key].author.name,
-                    // author: localStorage.getItem("userName"),
                     authorId: data[key].author.id,
-                    // authorId: localStorage.getItem("userId"),
                 });
             }
             setPostList(newState);
@@ -41,7 +43,7 @@ const BlogSection = ({ isAuth }) => {
     const handleRemovePost = (id) => {
         //this function needs to take one argument representing location of post being removed
         const database = getDatabase(firebase);
-        const dbRef = ref(database, `/${id}`); //`/${id}` is location of the info
+        const dbRef = ref(database, `/${id}`);
         remove(dbRef);
     };
 

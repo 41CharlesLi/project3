@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import Dropdown from "./Dropdown";
 import { getDatabase, set, ref } from "firebase/database";
-// import db from "./firebase-config";
 
-const DisplayCard = ({
-    allPosts,
-    userChoice,
-    isAuth,
-    auth,
-    handleRemovePost,
-}) => {
+const DisplayCard = ({ allPosts, userChoice, isAuth, handleRemovePost }) => {
     const [editState, setEditState] = useState(false);
 
     const initialInputs = {
@@ -28,6 +21,8 @@ const DisplayCard = ({
     const [inputs, setInputs] = useState(initialInputs);
     const [postKey, setPostKey] = useState("");
 
+    //sets inputs to values living within each card element and sets postKey in state so that
+    //it can be compared to the postID of the element clicked on.
     const handleEditState = (postId, post) => {
         setEditState(!editState);
         setPostKey(postId);
@@ -52,7 +47,7 @@ const DisplayCard = ({
             [id]: value,
         });
     };
-
+    //pushes changes to database
     const submitEdit = (postId) => {
         setEditState(!editState);
         const database = getDatabase();
@@ -105,7 +100,7 @@ const DisplayCard = ({
                         <h3 className="characterAuthor">
                             @{post.author ? post.author : "anonymous"}
                         </h3>
-                        {/* if current user id matches the id or the authorId OR the user is anon, they can use delete function */}
+                        {/* if current user id matches the id of the post or the authorId OR the user + author of post is anon, they can use delete function */}
                         {isAuth &&
                             post.authorId === localStorage.getItem("userId") &&
                             !editState && (
@@ -166,6 +161,8 @@ const DisplayCard = ({
         const filteredPosts = allPosts.filter((post) => {
             return post.characterClass === userChoice;
         });
+
+        // if there's nothing in the filtered array, return error message
         if (filteredPosts.length === 0) {
             return <p> nothing to show </p>;
         } else {
@@ -258,7 +255,7 @@ const DisplayCard = ({
                                                 setEditState();
                                             }}
                                         >
-                                            <i class="fa-solid fa-ban"></i>
+                                            <i className="fa-solid fa-ban"></i>
                                         </button>
                                         <button
                                             className="deleteButton"
@@ -266,7 +263,7 @@ const DisplayCard = ({
                                                 submitEdit(post.key);
                                             }}
                                         >
-                                            <i class="fa-solid fa-paper-plane"></i>
+                                            <i className="fa-solid fa-paper-plane"></i>
                                         </button>
                                     </div>
                                 )}
