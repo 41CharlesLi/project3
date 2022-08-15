@@ -542,7 +542,7 @@ option {
 
 .characterName {
     position: absolute;
-    top: 0%;
+    top: -7%;
     left: 2%;
     font-size: 1.15rem;
 }
