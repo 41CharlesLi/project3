@@ -20,7 +20,6 @@ const DisplayCard = ({ allPosts, userChoice, isAuth, handleRemovePost }) => {
 
     const [inputs, setInputs] = useState(initialInputs);
     const [postKey, setPostKey] = useState("");
-
     //sets inputs to values living within each card element and sets postKey in state so that
     //it can be compared to the postID of the element clicked on.
     const handleEditState = (postId, post) => {

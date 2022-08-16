@@ -3,10 +3,12 @@ import firebase from "./firebase-config";
 import { getDatabase, ref, push } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import sword from "./assets/sword.png";
+import Filter from "bad-words";
 
 const Form = ({ isAuth }) => {
     let navigate = useNavigate();
     //create object where we are storing user inputs as well as their login name and id
+    const filter = new Filter();
 
     const initialInputs = {
         characterName: "",
@@ -22,13 +24,18 @@ const Form = ({ isAuth }) => {
     };
 
     const [inputs, setInputs] = useState(initialInputs);
-
     //function to create a post and push to database. Afterwards, inputs are reset to empty string
     const createPost = (e) => {
         e.preventDefault();
         const database = getDatabase(firebase);
         const dbRef = ref(database);
-
+        if (
+            filter.isProfane(inputs.characterName) ||
+            filter.isProfane(inputs.characterBackstory)
+        ) {
+            alert("Watch your language, friend");
+            return;
+        }
         if (inputs) {
             push(dbRef, inputs);
             setInputs({
