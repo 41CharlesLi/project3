@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import Login from "./pages/Login";
 import Header from "./Header";
-// import Footer from "./Footer";
+import Footer from "./Footer";
 
 function App() {
     const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -24,6 +24,7 @@ function App() {
                     element={<Login setIsAuth={setIsAuth} />}
                 />
             </Routes>
+            <Footer />
         </>
     );
 }

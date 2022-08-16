@@ -4,8 +4,20 @@ const Footer = () => {
             <div className="wrapper">
                 <div className="footerTxtContainer">
                     <h3 className="footerTxt">
-                        Created by Charles at{" "}
-                        <a href="junocollege.com" target="_blank">
+                        Created by{" "}
+                        <a
+                            href="https://charlesli.ca"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Charles
+                        </a>{" "}
+                        at{" "}
+                        <a
+                            href="https://junocollege.com"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             Juno College
                         </a>
                     </h3>
