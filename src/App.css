@@ -284,10 +284,13 @@ ol {
     font-family: "Inknut Antiqua", serif;
 }
 
-.fa-solid {
+.whiteBtn {
     color: #f8f0e3;
 }
-
+.fa-xmark {
+    color: black;
+    padding: 0 3px;
+}
 /* header CSS */
 
 header {
@@ -435,6 +438,14 @@ select {
     margin: 0;
     gap: 15px;
     flex-wrap: wrap;
+}
+.pageBtn {
+    margin: 15px;
+    height: 40px;
+    width: 80px;
+}
+.pageBtn:hover {
+    cursor: pointer;
 }
 .editTxtArea {
     width: 300px;

@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup, signInAnonymously } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Login({ setIsAuth }) {
     let navigate = useNavigate();
+    const loginEl = useRef(null);
 
     //create state to know if user made error logging in
     const [loginError, setLoginError] = useState(false);
+
+    useEffect(() => {
+        const executeScroll = () => {
+            loginEl.current.scrollIntoView();
+        };
+        executeScroll();
+    }, []);
 
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider)
@@ -40,7 +48,7 @@ function Login({ setIsAuth }) {
             <div className="wrapper">
                 <div className="loginPage">
                     <div className="loginHeadingContainer">
-                        <h1>Sign in to Continue</h1>
+                        <h1 ref={loginEl}>Sign in to Continue</h1>
                     </div>
                     <div className="loginContainer">
                         <button

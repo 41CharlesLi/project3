@@ -8,7 +8,6 @@ import poster from "./assets/headerImg.jpg";
 
 const Header = ({ isAuth, signOut, setIsAuth }) => {
     const [showNav, setShowNav] = useState(false);
-
     const signUserOut = () => {
         signOut(auth).then(() => {
             localStorage.clear();
@@ -97,7 +96,11 @@ const Header = ({ isAuth, signOut, setIsAuth }) => {
                             }}
                         >
                             <span className="sr-only">hamburger menu</span>
-                            <i className="fa fa-bars"></i>
+                            {!showNav ? (
+                                <i className="fa fa-bars"></i>
+                            ) : (
+                                <i className="fa-solid fa-xmark"></i>
+                            )}{" "}
                         </button>
                     </nav>
                 </div>

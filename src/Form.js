@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import firebase from "./firebase-config";
 import { getDatabase, ref, push } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import sword from "./assets/sword.png";
 import Filter from "bad-words";
+import Dropdown from "./Dropdown";
 
 const Form = ({ isAuth }) => {
-    let navigate = useNavigate();
     //create object where we are storing user inputs as well as their login name and id
-    const filter = new Filter();
-
     const initialInputs = {
         characterName: "",
         characterBackstory: "",
@@ -22,8 +20,11 @@ const Form = ({ isAuth }) => {
             //storage
         },
     };
-
     const [inputs, setInputs] = useState(initialInputs);
+    let navigate = useNavigate();
+    const filter = new Filter();
+    const formEl = useRef(null);
+
     //function to create a post and push to database. Afterwards, inputs are reset to empty string
     const createPost = (e) => {
         e.preventDefault();
@@ -65,12 +66,16 @@ const Form = ({ isAuth }) => {
         if (!isAuth) {
             window.location.pathname = "/login";
         }
+        const executeScroll = () => {
+            formEl.current.scrollIntoView();
+        };
+        executeScroll();
     }, [isAuth]);
 
     return (
         <main>
             <div className="wrapper">
-                <div className="formContainer" id="form">
+                <div className="formContainer" id="form" ref={formEl}>
                     <h1 className="formHeading"> Create a Post</h1>
                     <form onSubmit={createPost} className="postForm">
                         <label htmlFor="characterName">Character's name</label>
@@ -84,28 +89,11 @@ const Form = ({ isAuth }) => {
                         <label htmlFor="characterClass">
                             Character's class
                         </label>
-                        <select
-                            id="characterClass"
-                            name="characterClass"
-                            className="characterClassInput"
-                            onChange={handleInputChange}
+                        <Dropdown
+                            handleInputChange={handleInputChange}
+                            inputs={inputs.characterClass}
                             value={inputs.characterClass}
-                            required
-                        >
-                            <option value="">Choose a class</option>
-                            <option value="Barbarian">Barbarian</option>
-                            <option value="Bard">Bard</option>
-                            <option value="Cleric">Cleric</option>
-                            <option value="Druid">Druid</option>
-                            <option value="Fighter">Fighter</option>
-                            <option value="Monk">Monk</option>
-                            <option value="Paladin">Paladin</option>
-                            <option value="Ranger">Ranger</option>
-                            <option value="Rogue">Rogue</option>
-                            <option value="Sorcerer">Sorcerer</option>
-                            <option value="Warlock">Warlock</option>
-                            <option value="Artificer">Artificer</option>
-                        </select>
+                        />
                         <label htmlFor="characterName">
                             Character's backstory
                         </label>

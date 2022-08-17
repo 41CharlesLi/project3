@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import firebase, { auth } from "./firebase-config";
 import { getDatabase, ref, onValue, remove } from "firebase/database";
 import DisplayCard from "./DisplayCard";
+import Dropdown from "./Dropdown";
 
 const BlogSection = ({ isAuth }) => {
     const [postList, setPostList] = useState([]);
-
     const [userChoice, setUserChoice] = useState("");
-
+    const [pageNumber, setPageNumber] = useState(0);
     //useEffect to init database fetch and onValue to listen for changes to metadata
+    const blogEl = useRef(null);
+
     useEffect(() => {
         const database = getDatabase(firebase);
         const dbRef = ref(database);
@@ -18,6 +20,11 @@ const BlogSection = ({ isAuth }) => {
             localStorage.setItem("userName", "anonymous");
             localStorage.setItem("userId", "anonymous");
         }
+
+        const executeScroll = () => {
+            blogEl.current.scrollIntoView();
+        };
+        executeScroll();
 
         onValue(dbRef, (response) => {
             const newState = [];
@@ -38,6 +45,8 @@ const BlogSection = ({ isAuth }) => {
 
     const handleUserChoice = (e) => {
         setUserChoice(e.target.value);
+        setPageNumber(0);
+        //sets page number to zero to resolve bug with pagination
     };
 
     const handleRemovePost = (id) => {
@@ -45,6 +54,21 @@ const BlogSection = ({ isAuth }) => {
         const database = getDatabase(firebase);
         const dbRef = ref(database, `/${id}`);
         remove(dbRef);
+    };
+
+    const nextPage = () => {
+        let numberOfArrays = Math.ceil(postList.length / 9);
+        if (pageNumber === numberOfArrays - 1) {
+            return;
+        }
+        setPageNumber(pageNumber + 1);
+    };
+
+    const previousPage = () => {
+        if (pageNumber === 0) {
+            return;
+        }
+        setPageNumber(pageNumber - 1);
     };
 
     return (
@@ -58,40 +82,42 @@ const BlogSection = ({ isAuth }) => {
                         <h2 className="selectFormHeading">
                             Filter Builds by Class
                         </h2>
-                        <select
+                        <Dropdown
+                            handleInputChange={handleUserChoice}
+                            value={userChoice}
                             id="filterClass"
                             name="filterClass"
-                            onChange={handleUserChoice}
-                            value={userChoice}
-                        >
-                            <option value="placeholder" disabled>
-                                Pick one:
-                            </option>
-                            <option value="">All Classes</option>
-                            <option value="Barbarian">Barbarian</option>
-                            <option value="Bard">Bard</option>
-                            <option value="Cleric">Cleric</option>
-                            <option value="Druid">Druid</option>
-                            <option value="Fighter">Fighter</option>
-                            <option value="Monk">Monk</option>
-                            <option value="Paladin">Paladin</option>
-                            <option value="Ranger">Ranger</option>
-                            <option value="Rogue">Rogue</option>
-                            <option value="Sorcerer">Sorcerer</option>
-                            <option value="Warlock">Warlock</option>
-                            <option value="Artificer">Artificer</option>
-                        </select>
+                        />
                     </form>
 
-                    <ul className="blogPosts">
+                    <ul className="blogPosts" ref={blogEl}>
                         <DisplayCard
                             allPosts={postList}
                             userChoice={userChoice}
                             isAuth={isAuth}
                             auth={auth}
                             handleRemovePost={handleRemovePost}
+                            pageNumber={pageNumber}
                         />
                     </ul>
+                    <div className="paginationBtnContainer">
+                        <button
+                            onClick={() => {
+                                previousPage();
+                            }}
+                            className="pageBtn"
+                        >
+                            PREV
+                        </button>
+                        <button
+                            onClick={() => {
+                                nextPage();
+                            }}
+                            className="pageBtn"
+                        >
+                            NEXT
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

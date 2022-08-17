@@ -1,11 +1,11 @@
-const Dropdown = ({ handleInputChange, inputs }) => {
+const Dropdown = ({ handleInputChange, value }) => {
     return (
         <select
             id="characterClass"
             name="characterClass"
             className="characterClassInput"
             onChange={handleInputChange}
-            value={inputs.characterClass}
+            value={value}
             required
         >
             <option value="">Choose a class</option>
