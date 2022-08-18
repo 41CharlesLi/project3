@@ -8,7 +8,10 @@ const Dropdown = ({ handleInputChange, value }) => {
             value={value}
             required
         >
-            <option value="">Choose a class</option>
+            <option value="null" disabled>
+                Choose a class
+            </option>
+            <option value="">All Classes</option>
             <option value="Barbarian">Barbarian</option>
             <option value="Bard">Bard</option>
             <option value="Cleric">Cleric</option>
