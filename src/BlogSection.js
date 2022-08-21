@@ -12,6 +12,7 @@ const BlogSection = ({ isAuth }) => {
 
     //useEffect to init database fetch and onValue to listen for changes to metadata
     const blogEl = useRef(null);
+    const postContainer = useRef(null);
 
     useEffect(() => {
         const database = getDatabase(firebase);
@@ -88,6 +89,7 @@ const BlogSection = ({ isAuth }) => {
             return;
         }
         setPageNumber(pageNumber + 1);
+        postContainer.current.scrollIntoView();
     };
 
     const previousPage = () => {
@@ -95,6 +97,7 @@ const BlogSection = ({ isAuth }) => {
             return;
         }
         setPageNumber(pageNumber - 1);
+        postContainer.current.scrollIntoView();
     };
 
     if (filteredPosts.length > 9) {
@@ -104,7 +107,7 @@ const BlogSection = ({ isAuth }) => {
                 <div className="wrapper">
                     <div className="blogSectionContainer">
                         <div className="blogHeadingContainer">
-                            <h2>List of Builds</h2>
+                            <h2 ref={postContainer}>List of Builds</h2>
                         </div>
                         <form className="buildSelectForm">
                             <h2 className="selectFormHeading">
