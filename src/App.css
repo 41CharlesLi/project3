@@ -526,7 +526,12 @@ select {
     display: flex;
     flex-direction: column;
 }
-
+.pageCount {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    font-size: 1.3rem;
+}
 .buildSelectForm {
     display: flex;
     flex-direction: row;

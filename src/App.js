@@ -25,6 +25,7 @@ function App() {
                     element={<Login setIsAuth={setIsAuth} />}
                 />
             </Routes>
+
             <Footer />
         </>
     );

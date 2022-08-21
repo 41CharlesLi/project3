@@ -1,4 +1,4 @@
-const Dropdown = ({ handleInputChange, value }) => {
+const Dropdown = ({ handleInputChange, value, homePage }) => {
     return (
         <select
             id="characterClass"
@@ -11,7 +11,7 @@ const Dropdown = ({ handleInputChange, value }) => {
             <option value="null" disabled>
                 Choose a class
             </option>
-            <option value="">All Classes</option>
+            {homePage && <option value="">All Classes</option>}
             <option value="Barbarian">Barbarian</option>
             <option value="Bard">Bard</option>
             <option value="Cleric">Cleric</option>
