@@ -1,4 +1,5 @@
 const Dropdown = ({ handleInputChange, value, homePage }) => {
+    //if homepage prop exists and is true, show the option for All classes
     return (
         <select
             id="characterClass"

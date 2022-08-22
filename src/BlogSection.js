@@ -98,6 +98,8 @@ const BlogSection = ({ isAuth }) => {
         setPageNumber(pageNumber - 1);
     };
 
+    //If the filtered posts contain more than 9 objects, run split array and paginate the pages before injection into DisplayCard.
+    //If not, just insert filteredPosts into the DisplayCard.
     if (filteredPosts.length > 9) {
         const newPosts = splitArray(filteredPosts, 9);
         return (
