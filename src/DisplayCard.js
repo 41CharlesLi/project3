@@ -56,6 +56,7 @@ const DisplayCard = ({ allPosts, isAuth, handleRemovePost }) => {
             [id]: value,
         });
     };
+
     //pushes changes to database
     const submitEdit = (postId) => {
         setEditState(!editState);
