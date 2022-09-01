@@ -11,7 +11,7 @@ const Form = ({ isAuth }) => {
     const initialInputs = {
         characterName: "",
         characterBackstory: "",
-        characterClass: "",
+        characterClass: "Barbarian",
         author: {
             name: localStorage.getItem("userName"),
             id: localStorage.getItem("userId"),
@@ -42,7 +42,7 @@ const Form = ({ isAuth }) => {
             setInputs({
                 characterName: "",
                 characterBackstory: "",
-                characterClass: "",
+                characterClass: "Barbarian",
                 author: {
                     name: "",
                     id: "",

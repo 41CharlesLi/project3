@@ -9,7 +9,7 @@ const Dropdown = ({ handleInputChange, value, homePage }) => {
             value={value}
             required
         >
-            <option value="null" disabled>
+            <option value={null} disabled>
                 Choose a class
             </option>
             {homePage && <option value="">All Classes</option>}
